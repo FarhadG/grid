@@ -1,0 +1,32 @@
+.wrapper, .fluid-wrapper, .row
+    clearfix()
+
+.fluid-wrapper
+    width: $fluid-wrapper-width
+
+.wrapper
+    width: 100%
+    max-width: $max-wrapper-width
+
+.row
+    width: 100%
+    margin-left: -($col-gutters)
+    margin-right: -($col-gutters)
+
+createGrid(name)
+    for num in 1..$col-count
+        $col-width = 100%/($col-count/num)
+        .{name}-{num}
+            width: $col-width
+            float: left
+            padding-left: $col-gutters
+            padding-right: $col-gutters
+
+createMediaQueryGrids()
+    $i = 0
+    for name in $break-point-names
+        @media screen and (min-width: $break-point-values[$i]px)
+            createGrid(name)
+        $i += 1
+
+createMediaQueryGrids()
